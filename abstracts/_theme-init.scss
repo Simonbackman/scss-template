@@ -1,0 +1,5 @@
+@use "variables"; // imports $themes
+@use "mixins"; // imports the theme-css mixin
+
+// Call the mixin using the proper namespace
+@include mixins.theme-css(variables.$themes);

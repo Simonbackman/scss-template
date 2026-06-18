@@ -1,0 +1,85 @@
+@use "../abstracts/" as u;
+
+.fb-col-wrapper {
+  --max-width: #{u.rem(960)};
+  --space-lr: #{u.rem(40)};
+  --space-gap: #{u.rem(20)};
+  --col-count: 2;
+
+  @include u.breakpoint("md") {
+    --space-lr: #{u.rem(80)};
+    --space-gap: #{u.rem(30)};
+    --col-count: 6;
+  }
+
+  @include u.breakpoint("lg") {
+    --col-count: 12;
+  }
+
+  display: grid;
+  grid-template-columns:
+    1fr repeat(
+      var(--col-count),
+      calc(
+        (
+            min(100% - var(--space-lr), var(--max-width)) -
+              (var(--col-count) - 1) * var(--space-gap)
+          ) /
+          var(--col-count)
+      )
+    )
+    1fr;
+  gap: var(--space-gap);
+}
+
+// content area
+.fb-col--content {
+  height: 100%;
+  grid-column: 2 / -2;
+
+  @include u.breakpoint("md") {
+    grid-column: 2 / 5;
+  }
+
+  @include u.breakpoint("lg") {
+    grid-column: 2 / 8;
+  }
+}
+
+// bleeds right edge
+.fb-col--bleed-right {
+  height: 100%;
+  grid-column: 2 / -1;
+
+  @include u.breakpoint("md") {
+    grid-column: 5 / -1;
+  }
+
+  @include u.breakpoint("lg") {
+    grid-column: 8 / -1;
+  }
+}
+
+// bleeds left edge
+.fb-col--bleed-left {
+  height: 100%;
+  grid-column: 1 / -2;
+
+  @include u.breakpoint("md") {
+    grid-column: 1 / 5;
+  }
+
+  @include u.breakpoint("lg") {
+    grid-column: 1 / 8;
+  }
+}
+
+// full content width, respects gutters — carousel etc.
+.fb-col--full {
+  grid-column: 2 / -2;
+}
+
+// true full bleed, ignores gutters
+.fb-col--bleed-full {
+  grid-column: 1 / -1;
+}

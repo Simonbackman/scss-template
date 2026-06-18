@@ -1,0 +1,51 @@
+@use "colors" as *;
+
+$themes: (
+  light: (
+    // Base surfaces
+    bg: map-get($colors-nord, nord6),
+    surface: map-get($colors-nord, nord5),
+    surface-2: map-get($colors-nord, nord4),
+    border: map-get($colors-nord, nord3),
+    // Text
+    text: map-get($colors-nord, nord0),
+    text-soft: map-get($colors-nord, nord1),
+    text-mute: map-get($colors-nord, nord2),
+    // Brand (Frost only)
+    brand: map-get($colors-nord, nord8),
+    brand-soft: map-get($colors-nord, nord7),
+    brand-strong: map-get($colors-nord, nord9),
+    brand-emphasis: map-get($colors-nord, nord10),
+    // States (Aurora only)
+    danger: map-get($colors-nord, nord11),
+    warning: map-get($colors-nord, nord13),
+    success: map-get($colors-nord, nord14),
+    info: map-get($colors-nord, nord12),
+    accent: map-get($colors-nord, nord15),
+    color-scheme: light,
+  ),
+
+  dark: (
+    // Base surfaces
+    bg: map-get($colors-nord, nord0),
+    surface: map-get($colors-nord, nord1),
+    surface-2: map-get($colors-nord, nord2),
+    border: map-get($colors-nord, nord3),
+    // Text
+    text: map-get($colors-nord, nord6),
+    text-soft: map-get($colors-nord, nord5),
+    text-mute: map-get($colors-nord, nord4),
+    // Brand (same identity in both themes)
+    brand: map-get($colors-nord, nord8),
+    brand-soft: map-get($colors-nord, nord7),
+    brand-strong: map-get($colors-nord, nord9),
+    brand-emphasis: map-get($colors-nord, nord10),
+    // States
+    danger: map-get($colors-nord, nord11),
+    warning: map-get($colors-nord, nord13),
+    success: map-get($colors-nord, nord14),
+    info: map-get($colors-nord, nord12),
+    accent: map-get($colors-nord, nord15),
+    color-scheme: dark,
+  ),
+);
