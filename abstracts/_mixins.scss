@@ -2,18 +2,22 @@
 @use "breakpoints" as *;
 @use "sass:math";
 @use "sass:map";
+@use "sass:list";
+@use "sass:color";
+@use "sass:string";
+
 // Based on: https://chriskirknielsen.com/blog/modern-fluid-typography-with-clamp/
 @mixin fs-fluid($min-vw, $max-vw, $min-value, $max-value) {
   $factor: math.div(1, ($max-vw - $min-vw)) * ($max-value - $min-value);
-  $calc-value: unquote(
+  $calc-value: string.unquote(
     "#{ $min-value - ($min-vw * $factor) } + #{ 100vw * $factor }"
   );
 
   font-size: $min-value; // Fallback for older browsers
   font-size: clamp(
-    #{if($min-value > $max-value, $max-value, $min-value)},
+    #{if(sass($min-value > $max-value): $max-value; else: $min-value)},
     #{$calc-value},
-    #{if($min-value > $max-value, $min-value, $max-value)}
+    #{if(sass($min-value > $max-value): $min-value; else: $max-value)}
   );
 }
 
@@ -36,13 +40,13 @@
 
   // 1. Default root (light)
   :root {
-    @each $prop, $value in map-get($theme-map, light) {
+    @each $prop, $value in map.get($theme-map, light) {
       @if $prop != color-scheme {
         --#{$prop}: #{$value};
 
         // Generate hover variant if in hover list
-        @if index($hover-props, $prop) {
-          --#{$prop}-hover: #{adjust-color($value, $lightness: -10%)};
+        @if list.index($hover-props, $prop) {
+          --#{$prop}-hover: #{color.adjust($value, $lightness: -10%)};
         }
       }
     }
@@ -52,13 +56,13 @@
   // 2. Dark system preference
   @media (prefers-color-scheme: dark) {
     :root {
-      @each $prop, $value in map-get($theme-map, dark) {
+      @each $prop, $value in map.get($theme-map, dark) {
         @if $prop != color-scheme {
           --#{$prop}: #{$value};
 
           // Generate hover variant if in hover list
-          @if index($hover-props, $prop) {
-            --#{$prop}-hover: #{adjust-color($value, $lightness: -10%)};
+          @if list.index($hover-props, $prop) {
+            --#{$prop}-hover: #{color.adjust($value, $lightness: -10%)};
           }
         }
       }
@@ -74,12 +78,12 @@
           --#{$prop}: #{$value};
 
           // Generate hover variant if in hover list
-          @if index($hover-props, $prop) {
-            --#{$prop}-hover: #{adjust-color($value, $lightness: -10%)};
+          @if list.index($hover-props, $prop) {
+            --#{$prop}-hover: #{color.adjust($value, $lightness: -10%)};
           }
         }
       }
-      color-scheme: map-get($colors, color-scheme);
+      color-scheme: map.get($colors, color-scheme);
     }
   }
 }
