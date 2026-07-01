@@ -1,4 +1,13 @@
-.img-cover {
-  object-fit: cover;
-  height: 100%;
+@use "../abstracts/" as u;
+:root {
+  --ff-base: "'Your Font', system-ui, sans-serif";
+}
+
+body {
+  font-family: var(--ff-base);
+  background: var(--bg);
+  color: var(--text);
+}
+main {
+  padding-block-start: u.rem(70);
 }
